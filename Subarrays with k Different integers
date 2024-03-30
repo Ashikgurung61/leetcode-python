@@ -1,0 +1,23 @@
+class Solution:
+    def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
+        count = defaultdict(int)
+        far_l = 0
+        near_l = 0
+        res = 0
+        for i in range(len(nums)):
+            count[nums[i]] += 1
+
+            while len(count) > k:
+                count[nums[near_l]] -= 1
+                if count[nums[near_l]] == 0:
+                    count.pop(nums[near_l])
+                near_l += 1
+                far_l = near_l
+
+            while count[nums[near_l]] > 1:
+                count[nums[near_l]] -= 1
+                near_l += 1
+
+            if len(count) == k:
+                res += near_l - far_l + 1
+        return res
