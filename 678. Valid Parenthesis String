@@ -1,0 +1,24 @@
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        min_l, max_l = 0, 0
+
+        for i in s:
+            if i == "(":
+                min_l += 1
+                max_l += 1
+
+            elif i == ")":
+                 min_l -= 1
+                max_l -= 1
+
+            else:
+                min_l -= 1
+                max_l += 1
+
+            if max_l < 0:
+                return False
+
+            if min_l < 0:
+                min_l = 0
+
+        return min_l == 0
