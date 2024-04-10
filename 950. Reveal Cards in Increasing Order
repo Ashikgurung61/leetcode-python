@@ -1,0 +1,13 @@
+class Solution:
+    def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
+        deck.sort()
+        res = [0] * len(deck)
+        queue = deque(range(len(deck)))
+
+        for i in deck:
+            n = queue.popleft()
+            res[n] = i
+
+            if queue:
+                i = queue.append(queue.popleft())
+        return res
